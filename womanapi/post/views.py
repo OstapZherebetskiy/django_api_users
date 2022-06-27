@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 from . import serializers
 from django.contrib.auth.models import User
 from .models import Post
@@ -15,6 +15,7 @@ class UserDetail(generics.RetrieveAPIView):
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = serializers.PostSerializer
+    
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

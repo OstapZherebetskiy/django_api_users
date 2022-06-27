@@ -1,21 +1,28 @@
 
+import sys
 import requests
 import json
+from bs4 import BeautifulSoup
+# print(requests.post('http://127.0.0.1:8000/log/login/?next=/api/post/', data= {"username": "ostap", "password": "12345"}).content)
 
-# tok = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MTgyOTEwLCJpYXQiOjE2NTYxODI2MTAsImp0aSI6ImExMGJlOGUwMzc5YTRhMmZiMzU0ODczOGI5Y2I5ZTA5IiwidXNlcl9pZCI6MX0.RoxnV56lWmhMyQ-asNbEAyg79fp_z-zEZvBb9IVdHaQ'
-ref_tok = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1NjI2OTE4MiwiaWF0IjoxNjU2MTgyNzgyLCJqdGkiOiIxYWUwZWZlOTcxZTQ0Zjk5YmM3NGIyZTQzMDNjZmUwOSIsInVzZXJfaWQiOjF9.dUueXBnOiN26ohgamaV9WW7oXZ2ZyoGrYURJHlOGKk0'
-# # data = {'refresh': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1NjI2OTE4MiwiaWF0IjoxNjU2MTgyNzgyLCJqdGkiOiIxYWUwZWZlOTcxZTQ0Zjk5YmM3NGIyZTQzMDNjZmUwOSIsInVzZXJfaWQiOjF9.dUueXBnOiN26ohgamaV9WW7oXZ2ZyoGrYURJHlOGKk0'}
+import sys
+import requests
 
-# ref = requests.post('http://127.0.0.1:8000/api/token/refresh/', data={'refresh': ref_tok})
-# print(ref.content)
+URL = 'http://127.0.0.1:8000/log/login/?next=/api/post/'
 
+client = requests.session()
 
+# Retrieve the CSRF token first
+client.get(URL)  # sets cookie
+if 'csrftoken' in client.cookies:
+    # Django 1.6 and up
+    csrftoken = client.cookies['csrftoken']
+else:
+    # older versions
+    csrftoken = client.cookies['csrf']
 
-log = requests.post('http://127.0.0.1:8000/log/login/', data={"username":'taras',"password":"123wsx123"})
-print(log.content)
-
-
-
+login_data = dict(username='ostap', password='12345', csrfmiddlewaretoken=csrftoken)
+r = client.post(URL, data=login_data, headers=dict(Referer=URL))
 
 # my_json = log.content.decode('utf8').replace("'", '"')
 
@@ -23,27 +30,9 @@ print(log.content)
 # # Load the JSON to a Python list & dump it back out as formatted JSON
 # data = json.loads(my_json)
 # s = json.dumps(data, indent=4, sort_keys=True)
-# # print(data['access'])
-
-# toke = 'Bearer ' + data['access']
-
-
-
-
-
-# r = requests.get('http://127.0.0.1:8000/api/v1/userlist/', headers={'Authorization': toke})
-# print(r)
-
-# my_json = r.content.decode('utf8').replace("'", '"')
-# print('- ' * 20)
-
-# # Load the JSON to a Python list & dump it back out as formatted JSON
-# data = json.loads(my_json)
-# s = json.dumps(data, indent=4, sort_keys=True)
 # print(s)
 
+log = requests.get('http://127.0.0.1:8000/api/post/')
+print(log.content)
 
-# z = requests.post('http://127.0.0.1:8000/api/v1/womanlist/create/', data={"title": 'jopa',  "content": 'qqqqqqqqq', "user_id": '2'})
 
-# print(z)
-# print(z.content)
