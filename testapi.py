@@ -26,18 +26,12 @@ else:
     # older versions
     csrftoken = client.cookies['csrf']
 
-login_data = dict(username='oleg', password='123qaz123', csrfmiddlewaretoken=csrftoken)
+login_data = dict(username='ostap', password='12345', csrfmiddlewaretoken=csrftoken)
 # print(login_data)
 r = client.post(URL, data=login_data, headers=dict(Referer=URL))
 Js(r)
 
-client.get(URL)  # sets cookie
-if 'csrftoken' in client.cookies:
-    # Django 1.6 and up
-    csrftoken = client.cookies['csrftoken']
-else:
-    # older versions
-    csrftoken = client.cookies['csrf']
+
 
 log = client.get('http://127.0.0.1:8000/api/post/')
 

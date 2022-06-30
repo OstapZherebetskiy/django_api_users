@@ -1,4 +1,4 @@
-"""womanapi URL Configuration
+"""drf_api URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -15,10 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('log/', include('rest_framework.urls')),
-    path('api/', include('post.urls')),
+    path('', include('post.urls')),
 ]
