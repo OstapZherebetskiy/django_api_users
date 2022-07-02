@@ -1,9 +1,5 @@
-from django.db import router
 from django.urls import path, include
-
-from rest_framework.routers import SimpleRouter
 from .views import *
-
 
 
 urlpatterns = [
@@ -11,4 +7,7 @@ urlpatterns = [
 
     path('post/', PostListAPIView.as_view()),
     path('post/<int:pk>/', PostUpdateAPIView.as_view()),
+    path('my_post/', MyPostAPIView.as_view()),
+    path('like/', LikeOrUnlikePost.as_view()),
+
 ]

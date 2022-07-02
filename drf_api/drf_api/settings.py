@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'post.apps.PostConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -135,6 +136,9 @@ REST_FRAMEWORK = {
 
     ]
 }
+
+LOGIN_REDIRECT_URL = '/post/'
+LOGOUT_REDIRECT_URL = '/post/'
 
 
 
