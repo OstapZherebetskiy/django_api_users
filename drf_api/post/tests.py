@@ -17,7 +17,7 @@ class APITest(TestCase):
         post = Post(title='Test', text='Test', user=self.user)
         post.save()
 
-        response = client.get('http://127.0.0.1:8000/post/1/', format='json')
+        response = client.get('http://127.0.0.1:8000/api/post/1/', format='json')
         self.assertEqual(response.status_code, 200)
         print('test-1: PASS')
 
@@ -32,7 +32,7 @@ class APITest(TestCase):
         post.save()
 
         response = client.put(
-            'http://127.0.0.1:8000/post/1/',  data={'title': 'testttt', 'text': 'test textttt'})
+            'http://127.0.0.1:8000/api/post/1/',  data={'title': 'testttt', 'text': 'test textttt'})
         self.assertEqual(response.status_code, 200)
         print('test-2: PASS')
 
@@ -44,7 +44,7 @@ class APITest(TestCase):
         client = APIClient()
         client.force_authenticate(user=self.user)
 
-        response = client.get('http://127.0.0.1:8000/post/', format='json')
+        response = client.get('http://127.0.0.1:8000/api/post/', format='json')
         self.assertEqual(response.status_code, 200)
         print('test-3: PASS')
 
