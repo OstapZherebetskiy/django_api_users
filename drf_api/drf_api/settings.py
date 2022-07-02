@@ -137,8 +137,8 @@ REST_FRAMEWORK = {
     ]
 }
 
-LOGIN_REDIRECT_URL = '/post/'
-LOGOUT_REDIRECT_URL = '/post/'
+LOGIN_REDIRECT_URL = '/auth/post/'
+LOGOUT_REDIRECT_URL = '/auth/post/'
 
 
 
